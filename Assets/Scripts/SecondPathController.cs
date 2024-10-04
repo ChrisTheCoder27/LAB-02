@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathController : MonoBehaviour
+public class SecondPathController : MonoBehaviour
 {
     [SerializeField] public PathManager pathManager;
 
@@ -20,7 +20,6 @@ public class PathController : MonoBehaviour
         thePath = pathManager.GetPath();
         if (thePath != null && thePath.Count > 0)
         {
-            // Set starting target to the first waypoint
             target = thePath[0];
         }
 
@@ -64,7 +63,10 @@ public class PathController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Switch to next target
         target = pathManager.GetNextTarget();
+
+        // Sets animation to idle
+        isWalking = false;
+        animator.SetBool("isWalking", isWalking);
     }
 }
